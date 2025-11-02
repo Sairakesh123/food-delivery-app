@@ -32,11 +32,11 @@ Built using **React (frontend)**, **Spring Boot (backend)**, **MongoDB (database
 
 ## 🗂 Project Structure  
 food-delivery-app/
-├── backend/ ← Spring Boot API
+├── backend/      ← Spring Boot API
 │ └── FoodDelivery/
-├── frontend/ ← React frontend app
+├── frontend/     ← React frontend app
 │ └── Foodies/
 ├── docs/
-│ └── screenshots/ ← App UI demos
+│ └── screenshots/   ← App UI demos
 ├── .gitignore
 └── README.md
