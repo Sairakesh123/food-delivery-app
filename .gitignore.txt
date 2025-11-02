@@ -1,0 +1,24 @@
+# Node
+node_modules/
+npm-debug.log
+
+# Java
+target/
+*.class
+*.jar
+*.war
+*.iml
+
+# Env
+.env
+*.env
+application.yml
+application.properties
+
+# IDEs
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db

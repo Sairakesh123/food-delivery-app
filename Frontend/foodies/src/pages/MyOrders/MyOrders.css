@@ -1,0 +1,40 @@
+.refresh-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 36px;
+  width: 36px;
+  border-radius: 8px;
+  border: 1px solid #0d6efd;
+  background: white !important;
+  color: #0d6efd !important;
+  transition: all 0.25s ease;
+  cursor: pointer;
+}
+
+.refresh-btn:hover {
+  background-color: #e7f1ff !important;
+  transform: scale(1.1);
+}
+
+.refresh-btn:active {
+  background-color: #cce5ff !important;
+  color: #084298 !important;
+  transform: scale(0.9);
+}
+
+/* When loading, rotate the icon */
+.refresh-btn.loading i {
+  animation: spin 0.9s linear infinite;
+  color: #0d6efd !important;
+}
+
+/* Keyframes for spinning icon */
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
