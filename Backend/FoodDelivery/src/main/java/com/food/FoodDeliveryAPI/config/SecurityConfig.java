@@ -32,12 +32,6 @@ public class SecurityConfig {
 	
 	private final AppUserDetailsService userDetailsService;
 	private final JwtAuthenticationFilter jwtAuthenticationFilter;
-	
-	public SecurityConfig(AppUserDetailsService userDetailsService,JwtAuthenticationFilter jwtAuthenticationFilter) {
-		super();
-		this.userDetailsService = userDetailsService;
-		this.jwtAuthenticationFilter=jwtAuthenticationFilter;
-	}
 
 	@Bean
 	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception{
