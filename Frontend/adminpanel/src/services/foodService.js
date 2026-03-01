@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_URL = `${import.meta.env.VITE_API_URL}/foods`;
+const API_URL = `${import.meta.env.VITE_API_URL}/api/foods`;
 
 // Axios instance with token automatically attached
 const axiosInstance = axios.create();
