@@ -1,22 +1,81 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
-import {assets} from '../../assets/assets' 
-const Sidebar = ({sidebarVisible}) => {
-    return (
-        <div className={`border-end bg-white ${sidebarVisible ? '' : 'd-none'}`} id="sidebar-wrapper">
-            <div className="sidebar-heading border-bottom bg-light">
-                <img src= {assets.logo} alt ="" height={42} width={42}></img>
-            </div>
-            <div className="list-group list-group-flush">
-                <Link className="list-group-item list-group-item-action list-group-item-light p-3" to="/add">
-                <i className='bi bi-plus-circle me-2'></i>Add Food</Link>
-                <Link className="list-group-item list-group-item-action list-group-item-light p-3" to="/list">
-                <i className='bi bi-list-ul me-2'></i>List Food</Link>
-                <Link className="list-group-item list-group-item-action list-group-item-light p-3" to="/orders">
-                <i className='bi bi-cart me-2'></i>Orders</Link>
-            </div>
-        </div>
-    )
-}
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
+import { assets } from '../../assets/assets';
 
-export default Sidebar
+const API_URL = `${import.meta.env.VITE_API_URL}/orders`;
+
+const Orders = () => {
+  const [data, setData] = useState([]);
+
+  const fetchOrders = async () => {
+    try {
+      const response = await axios.get(`${API_URL}/all`);
+      setData(response.data);
+    } catch (error) {
+      console.log("Error fetching orders:", error);
+    }
+  };
+
+  const updateStatus = async (event, orderId) => {
+    try {
+      const response = await axios.patch(
+        `${API_URL}/status/${orderId}?status=${event.target.value}`
+      );
+
+      if (response.status === 200) {
+        await fetchOrders();
+      }
+    } catch (error) {
+      console.log("Error updating status:", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchOrders();
+  }, []);
+
+  return (
+    <div className='container py-5'>
+      <div className='row justify-content-center'>
+        <div className='col-11 card p-3'>
+          <table className='table'>
+            <tbody>
+              {data.map((order, index) => (
+                <tr key={index}>
+                  <td>
+                    <img src={assets.parcel} alt="" height={48} width={48} />
+                  </td>
+                  <td>
+                    <div>
+                      {order.orderedItems.map((item, i) =>
+                        i === order.orderedItems.length - 1
+                          ? `${item.name} x ${item.quantity}`
+                          : `${item.name} x ${item.quantity}, `
+                      )}
+                    </div>
+                    <div>{order.userAddress}</div>
+                  </td>
+                  <td>₹{order.amount.toFixed(2)}</td>
+                  <td>Items: {order.orderedItems.length}</td>
+                  <td>
+                    <select
+                      className="form-control"
+                      onChange={(event) => updateStatus(event, order.id)}
+                      value={order.orderStatus}
+                    >
+                      <option value="Food Preparing">Food Preparing</option>
+                      <option value="Out for delivery">Out for delivery</option>
+                      <option value="Delivered">Delivered</option>
+                    </select>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default Orders;
