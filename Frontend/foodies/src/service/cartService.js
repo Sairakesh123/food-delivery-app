@@ -1,34 +1,23 @@
 import axios from "axios";
 
 const BASE_URL = import.meta.env.VITE_API_BASE_URL;
-const API_URL = `${BASE_URL}/api`;
+const API_URL = `${BASE_URL}/api/cart`;
 
 export const addToCart = async (foodId, token) => {
-    try {
-        await axios.post(API_URL,{foodId},{headers: {"Authorization": `Bearer ${token}`}});
-
-    } catch (error) {
-        console.error('Error while adding the cart data',error);
-    }
-}
+    await axios.post(API_URL, { foodId }, {
+        headers: { Authorization: `Bearer ${token}` }
+    });
+};
 
 export const removeQtyFromCart = async (foodId, token) => {
-    try {
-        await axios.post(API_URL+"/remove",{foodId},{headers: {"Authorization": `Bearer ${token}`}});
-
-    } catch (error) {
-        console.error('Error while removing qty from cart',error);
-
-    }
-}
+    await axios.post(`${API_URL}/remove`, { foodId }, {
+        headers: { Authorization: `Bearer ${token}` }
+    });
+};
 
 export const getCartData = async (token) => {
-    try {
-        const response = await axios.get(API_URL,{
-        headers: {Authorization: `Bearer ${token}`},
+    const response = await axios.get(API_URL, {
+        headers: { Authorization: `Bearer ${token}` }
     });
     return response.data.items;
-    } catch (error) {
-        console.error('Error while fetching the cart data',error);
-    }
-}
+};
