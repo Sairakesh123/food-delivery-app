@@ -9,6 +9,7 @@ const Orders = () => {
 
   const fetchOrders = async () => {
     try {
+      const token = localStorage.getItem("token");
       const response = await axios.get(`${API_URL}/all`);
       setData(response.data);
     } catch (error) {
