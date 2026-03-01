@@ -8,7 +8,7 @@ const Sidebar = ({sidebarVisible}) => {
                 <img src= {assets.logo} alt ="" height={42} width={42}></img>
             </div>
             <div className="list-group list-group-flush">
-                <Link className="list-group-item list-group-item-action list-group-item-light p-3" to="/add">
+                <Link className="list-group-item list-group-item-action list-group-item-light p-3" to="/">
                 <i className='bi bi-plus-circle me-2'></i>Add Food</Link>
                 <Link className="list-group-item list-group-item-action list-group-item-light p-3" to="/list">
                 <i className='bi bi-list-ul me-2'></i>List Food</Link>
