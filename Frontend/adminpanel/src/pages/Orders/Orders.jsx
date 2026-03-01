@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { assets } from '../../assets/assets';
 
-const API_URL = `${import.meta.env.VITE_API_URL}/orders`;
+const API_URL = `${import.meta.env.VITE_API_URL}/api/orders`;
 
 const Orders = () => {
   const [data, setData] = useState([]);
