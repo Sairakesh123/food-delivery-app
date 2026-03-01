@@ -27,7 +27,6 @@ import lombok.AllArgsConstructor;
 @RestController
 @RequestMapping("/api/foods")
 @AllArgsConstructor
-@CrossOrigin("*")
 public class FoodController {
 	
 	private final FoodService foodService ;
