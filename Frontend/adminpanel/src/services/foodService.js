@@ -8,7 +8,11 @@ export const addFood = async (foodData, image) => {
     formData.append('file', image);
 
     try {
-        await axios.post(API_URL, formData);
+        await axios.post(API_URL, formData, {
+            headers: {
+                "Authorization": `Bearer ${token}`
+            }
+        });   
     } catch (error) {
         console.log('Error', error);
         throw error;
