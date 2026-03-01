@@ -4,6 +4,8 @@ import axios from 'axios';
 import { assets } from '../../assets/assets';
 import './MyOrders.css';
 
+const API_BASE_URL = import.meta.env.VITE_API_URL;
+
 const MyOrders = () => {
   const { token } = useContext(StoreContext);
   const [data, setData] = useState([]);
@@ -12,9 +14,16 @@ const MyOrders = () => {
   const fetchOrders = async () => {
     try {
       setLoadingRefresh(true);
-      const response = await axios.get('http://localhost:8080/api/orders', {
-        headers: { Authorization: `Bearer ${token}` },
-      });
+
+      const response = await axios.get(
+        `${API_BASE_URL}/api/orders`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
       setData(response.data || []);
     } catch (err) {
       console.error('Error fetching orders', err);
@@ -24,8 +33,9 @@ const MyOrders = () => {
   };
 
   useEffect(() => {
-    if (token) fetchOrders();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    if (token) {
+      fetchOrders();
+    }
   }, [token]);
 
   return (
@@ -46,32 +56,42 @@ const MyOrders = () => {
                         .map((item) => `${item.name} x ${item.quantity}`)
                         .join(', ')}
                     </div>
-                    <div className="small text-muted mt-1">{order.userAddress}</div>
+                    <div className="small text-muted mt-1">
+                      {order.userAddress}
+                    </div>
                   </td>
 
                   <td style={{ width: '120px', verticalAlign: 'middle' }}>
-                    &#x20B9;{Number(order.amount).toFixed(2)}
+                    ₹{Number(order.amount).toFixed(2)}
                   </td>
 
                   <td style={{ width: '120px', verticalAlign: 'middle' }}>
                     Items: {order.orderedItems.length}
                   </td>
 
-                  <td style={{ width: '220px', verticalAlign: 'middle' }} className="text-capitalize fw-bold">
-                    &#x25cf; {order.orderStatus}
+                  <td
+                    style={{ width: '220px', verticalAlign: 'middle' }}
+                    className="text-capitalize fw-bold"
+                  >
+                    ● {order.orderStatus}
                   </td>
 
-                  {/* Refresh button cell — KEEP THIS INSIDE A TD */}
-                  <td style={{ width: '72px', verticalAlign: 'middle', textAlign: 'center' }}>
-                   <button
-                    className={`btn refresh-btn ${loadingRefresh ? 'loading' : ''}`}
-                    onClick={fetchOrders}
-                    title="Refresh orders"
-                    aria-label="Refresh orders"
-                   >
-                    <i className="bi bi-arrow-clockwise" />
+                  <td
+                    style={{
+                      width: '72px',
+                      verticalAlign: 'middle',
+                      textAlign: 'center',
+                    }}
+                  >
+                    <button
+                      className={`btn refresh-btn ${
+                        loadingRefresh ? 'loading' : ''
+                      }`}
+                      onClick={fetchOrders}
+                      title="Refresh orders"
+                    >
+                      <i className="bi bi-arrow-clockwise" />
                     </button>
-
                   </td>
                 </tr>
               ))}
