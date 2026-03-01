@@ -63,7 +63,7 @@ const PlaceOrder = () => {
 
     try {
       const response = await axios.post(
-        `${API_BASE_URL}/orders/create`,
+        `${API_BASE_URL}/api/orders/create`,
         orderData,
         {
           headers: {
@@ -124,7 +124,7 @@ const PlaceOrder = () => {
   const verifyPayment = async (razorpayResponse) => {
     try {
       const response = await axios.post(
-        `${API_BASE_URL}/orders/verify`,
+        `${API_BASE_URL}/api/orders/verify`,
         razorpayResponse,
         {
           headers: {
@@ -152,7 +152,7 @@ const PlaceOrder = () => {
   // ================================
   const deleteOrder = async (orderId) => {
     try {
-      await axios.delete(`${API_BASE_URL}/orders/${orderId}`, {
+      await axios.delete(`${API_BASE_URL}/api/orders/${orderId}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -167,7 +167,7 @@ const PlaceOrder = () => {
   // ================================
   const clearCart = async () => {
     try {
-      await axios.delete(`${API_BASE_URL}/cart`, {
+      await axios.delete(`${API_BASE_URL}/api/cart`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
