@@ -1,40 +1,71 @@
-import React, { useState } from 'react';
-import { Route, Routes } from 'react-router-dom';
-import AddFood from './pages/AddFood/AddFood';
-import ListFood from './pages/ListFood/ListFood';
-import Orders from './pages/Orders/Orders';
-import Sidebar from './components/Sidebar/Sidebar';
-import Menubar from './components/Menubar/Menubar';
-import { ToastContainer } from 'react-toastify'
+import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
+import AddFood from "./pages/AddFood/AddFood";
+import ListFood from "./pages/ListFood/ListFood";
+import Orders from "./pages/Orders/Orders";
+import Login from "./pages/Login/Login";
+import Sidebar from "./components/Sidebar/Sidebar";
 
-const App = () => {
-    const [sidebarVisible, setSidebarVisible] = useState(true)
-
-    const toggleSidebar = () => {
-        setSidebarVisible(!sidebarVisible);
-    }
-    return (
-        <div className="d-flex" id="wrapper">
-
-            <Sidebar sidebarVisible={sidebarVisible} />
-
-            <div id="page-content-wrapper">
-
-                <Menubar toggleSidebar={toggleSidebar} />
-                <ToastContainer />
-
-                <div className="container-fluid">
-                    <Routes>
-                        <Route path='/add' element={<AddFood />}></Route>
-                        <Route path='/list' element={<ListFood />}></Route>
-                        <Route path='/orders' element={<Orders />}></Route>
-                        <Route path='/' element={<ListFood />}></Route>
-                    </Routes>
-                </div>
-            </div>
-
-        </div>
-    )
+function ProtectedRoute({ children }) {
+  const token = localStorage.getItem("token");
+  return token ? children : <Navigate to="/login" />;
 }
 
-export default App
+function Layout({ children }) {
+  return (
+    <div style={{ display: "flex" }}>
+      <Sidebar />
+      <div style={{ flex: 1, padding: "20px" }}>
+        {children}
+      </div>
+    </div>
+  );
+}
+
+function App() {
+  return (
+    <Router>
+      <Routes>
+
+        {/* Login Route */}
+        <Route path="/login" element={<Login />} />
+
+        {/* Protected Admin Routes */}
+        <Route
+          path="/"
+          element={
+            <ProtectedRoute>
+              <Layout>
+                <AddFood />
+              </Layout>
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/list"
+          element={
+            <ProtectedRoute>
+              <Layout>
+                <ListFood />
+              </Layout>
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/orders"
+          element={
+            <ProtectedRoute>
+              <Layout>
+                <Orders />
+              </Layout>
+            </ProtectedRoute>
+          }
+        />
+
+      </Routes>
+    </Router>
+  );
+}
+
+export default App;
