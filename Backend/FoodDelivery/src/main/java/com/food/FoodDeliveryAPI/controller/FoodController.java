@@ -31,11 +31,6 @@ import lombok.AllArgsConstructor;
 public class FoodController {
 	
 	private final FoodService foodService ;
-	public FoodController(FoodService foodService) {
-		super();
-		this.foodService = foodService;
-	}
-	
 
 	@PostMapping
 	public FoodResponse addFood(@RequestPart("food") String foodString,
