@@ -30,11 +30,12 @@ public class UserServiceImpl implements UserService{
 	}
 	
 	private UserEntity convertToEntity(UserRequest request) {
-		return UserEntity.builder()
-		.email(request.getEmail())
-		.password(passwordEncoder.encode(request.getPassword()))
-		.name(request.getName())
-		.build();
+		UserEntity user = new UserEntity();
+		user.setName(request.getName());
+		user.setEmail(request.getEmail());
+		user.setPassword(passwordEncoder.encode(request.getPassword()));
+		user.setRole("USER"); 
+		return user;
 	}
 	
 	private UserResponse convertToResponse(UserEntity registeredUser) {
