@@ -19,6 +19,7 @@ const Orders = () => {
 
   const updateStatus = async (event, orderId) => {
     try {
+      const token = localStorage.getItem("token");
       const response = await axios.patch(
         `${API_URL}/status/${orderId}?status=${event.target.value}`
       );
