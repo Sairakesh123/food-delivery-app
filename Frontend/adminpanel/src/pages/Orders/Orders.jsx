@@ -7,30 +7,43 @@ const API_URL = `${import.meta.env.VITE_API_URL}/api/orders`;
 const Orders = () => {
   const [data, setData] = useState([]);
 
-  const fetchOrders = async () => {
-    try {
-      const token = localStorage.getItem("token");
-      const response = await axios.get(`${API_URL}/all`);
-      setData(response.data);
-    } catch (error) {
-      console.log("Error fetching orders:", error);
-    }
-  };
+ const fetchOrders = async () => {
+  try {
+    const token = localStorage.getItem("token");
 
-  const updateStatus = async (event, orderId) => {
-    try {
-      const token = localStorage.getItem("token");
-      const response = await axios.patch(
-        `${API_URL}/status/${orderId}?status=${event.target.value}`
-      );
+    const response = await axios.get(`${API_URL}/all`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
 
-      if (response.status === 200) {
-        await fetchOrders();
+    setData(response.data);
+  } catch (error) {
+    console.log("Error fetching orders:", error.response);
+  }
+};
+
+const updateStatus = async (event, orderId) => {
+  try {
+    const token = localStorage.getItem("token");
+
+    const response = await axios.patch(
+      `${API_URL}/status/${orderId}?status=${event.target.value}`,
+      {},
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
       }
-    } catch (error) {
-      console.log("Error updating status:", error);
+    );
+
+    if (response.status === 200) {
+      await fetchOrders();
     }
-  };
+  } catch (error) {
+    console.log("Error updating status:", error.response);
+  }
+};
 
   useEffect(() => {
     fetchOrders();
