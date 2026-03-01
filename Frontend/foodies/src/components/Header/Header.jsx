@@ -18,7 +18,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import headerImg from '../../assets/header.png';
-import './header.css';
+import './Header.css';
 
 const Header = () => {
   return (
