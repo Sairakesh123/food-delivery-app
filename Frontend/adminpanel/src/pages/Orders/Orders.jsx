@@ -55,7 +55,7 @@ const Orders = () => {
                     </div>
                     <div>{order.userAddress}</div>
                   </td>
-                  <td>₹{order.amount.toFixed(2)}</td>
+                  <td>₹{Number(order.amount).toFixed(2)}</td>
                   <td>Items: {order.orderedItems.length}</td>
                   <td>
                     <select
