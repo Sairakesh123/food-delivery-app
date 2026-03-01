@@ -3,6 +3,9 @@ import axios from 'axios'
 const API_URL = `${import.meta.env.VITE_API_URL}/foods`;
 
 export const addFood = async (foodData, image) => {
+   
+    const token = localStorage.getItem("token"); 
+    
     const formData = new FormData();
     formData.append('food', JSON.stringify(foodData));
     formData.append('file', image);
@@ -30,11 +33,20 @@ export const getFoodList = async () => {
 }
 
 export const deleteFood = async (foodId) => {
+
+    const token = localStorage.getItem("token");
+
     try {
-        const response = await axios.delete(`${API_URL}/${foodId}`);
+        const response = await axios.delete(`${API_URL}/${foodId}`, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        });
+
         return response.status === 204;
+
     } catch (error) {
-        console.log('Error while deleting the food.',error);
+        console.log('Error while deleting the food.', error);
         throw error;
     }
 }
