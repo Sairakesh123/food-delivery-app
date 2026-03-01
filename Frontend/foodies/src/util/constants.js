@@ -1,2 +1,1 @@
-
-export const RAZORPAY_KEY = "rzp_test_SLq41b1m4mFbee";
+export const RAZORPAY_KEY = import.meta.env.VITE_RAZORPAY_KEY;
