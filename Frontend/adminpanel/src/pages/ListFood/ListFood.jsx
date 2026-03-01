@@ -10,7 +10,6 @@ const ListFood = () => {
     setList(data);
   } catch (error) {
     toast.error('Error while reading the foods.');
-    throw error;
   }
 }
 
@@ -26,7 +25,6 @@ const removeFood = async (foodId) => {
     }
   } catch (error) {
     toast.error('Error occured while removing the food.');
-    throw error;
   }
 }
   
