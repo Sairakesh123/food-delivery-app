@@ -19,14 +19,6 @@ public class CartServiceImpl implements CartService {
 
 	private final CartRepository cartRepository;
 	private final UserService userService;
-	
-	
-	public CartServiceImpl(CartRepository cartRepository, UserService userService) {
-		super();
-		this.cartRepository = cartRepository;
-		this.userService = userService;
-	}
-
 
 
 	@Override
