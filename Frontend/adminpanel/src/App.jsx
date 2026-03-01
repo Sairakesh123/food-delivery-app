@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 import AddFood from "./pages/AddFood/AddFood";
 import ListFood from "./pages/ListFood/ListFood";
 import Orders from "./pages/Orders/Orders";
@@ -23,48 +23,46 @@ function Layout({ children }) {
 
 function App() {
   return (
-    <Router>
-      <Routes>
+    <Routes>
 
-        {/* Login Route */}
-        <Route path="/login" element={<Login />} />
+      {/* Login */}
+      <Route path="/login" element={<Login />} />
 
-        {/* Protected Admin Routes */}
-        <Route
-          path="/"
-          element={
-            <ProtectedRoute>
-              <Layout>
-                <AddFood />
-              </Layout>
-            </ProtectedRoute>
-          }
-        />
+      {/* Protected Routes */}
+      <Route
+        path="/"
+        element={
+          <ProtectedRoute>
+            <Layout>
+              <AddFood />
+            </Layout>
+          </ProtectedRoute>
+        }
+      />
 
-        <Route
-          path="/list"
-          element={
-            <ProtectedRoute>
-              <Layout>
-                <ListFood />
-              </Layout>
-            </ProtectedRoute>
-          }
-        />
+      <Route
+        path="/list"
+        element={
+          <ProtectedRoute>
+            <Layout>
+              <ListFood />
+            </Layout>
+          </ProtectedRoute>
+        }
+      />
 
-        <Route
-          path="/orders"
-          element={
-            <ProtectedRoute>
-              <Layout>
-                <Orders />
-              </Layout>
-            </ProtectedRoute>
-          }
-        />
+      <Route
+        path="/orders"
+        element={
+          <ProtectedRoute>
+            <Layout>
+              <Orders />
+            </Layout>
+          </ProtectedRoute>
+        }
+      />
 
-      </Routes>
-    </Router>
+    </Routes>
   );
 }
 
