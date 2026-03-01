@@ -4,7 +4,7 @@ import axios from 'axios';
 import { assets } from '../../assets/assets';
 import './MyOrders.css';
 
-const API_BASE_URL = import.meta.env.VITE_API_URL;
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
 const MyOrders = () => {
   const { token } = useContext(StoreContext);
